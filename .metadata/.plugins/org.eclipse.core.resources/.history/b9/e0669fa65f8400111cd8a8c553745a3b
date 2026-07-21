@@ -1,0 +1,35 @@
+package com.example.samuraitravel.controller;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.samuraitravel.entity.User;
+import com.example.samuraitravel.repository.UserRepository;
+import com.example.samuraitravel.security.UserDetailsImpl;
+import com.example.samuraitravel.service.UserService;
+
+@Controller
+@RequestMapping("/user/favorites")
+public class FavoriteController {
+    private final UserRepository userRepository;    
+    private final UserService userService;
+    
+    public FavoriteController(UserRepository userRepository, UserService userService) {
+        this.userRepository = userRepository; 
+        this.userService = userService; 
+    }    
+    
+    @GetMapping
+    public String index(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, Model model) {         
+        User user = userRepository.getReferenceById(userDetailsImpl.getUser().getId());  
+        
+        model.addAttribute("user", user);
+        
+        return "user/index";
+    }
+    
+        
+}

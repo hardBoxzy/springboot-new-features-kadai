@@ -1,0 +1,16 @@
+package com.example.samuraitravel.service;
+
+import org.springframework.stereotype.Service;
+
+import com.example.samuraitravel.repository.FavoriteRepository;
+
+@Service
+public class FavoriteService {
+	private final FavoriteRepository favoriteRepository;
+	
+	public FavoriteService(FavoriteRepository favoriteRepository) {
+		this.favoriteRepository = favoriteRepository;
+	}
+	
+	
+}
